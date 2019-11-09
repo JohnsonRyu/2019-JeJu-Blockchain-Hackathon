@@ -80,6 +80,7 @@ interface IAnimalCareGetDataBase {
     function getAdoptionDate(bytes32 _adoptionDate) external view returns (uint256[]);
     function getRemarks(string _remarks) external view returns (uint256[]);
     function getAnimalData(uint256 _idx) external view returns(
+        uint256 animalID,
         bytes32 name, 
         bytes32 animalType, 
         bytes32 color, 
@@ -89,7 +90,7 @@ interface IAnimalCareGetDataBase {
         string remarks
     );
      function getAnimalDataArray(uint256[] _idx) external view returns(
-        bytes32[], 
+        uint256[],
         bytes32[], 
         bytes32[], 
         uint8[], 
@@ -246,6 +247,7 @@ contract AnimalCare is Ownable, ByteToString, IAnimalCareSetDataBase, IAnimalCar
     }
     
     function getAnimalData(uint256 _idx) external view returns(
+        uint256 animalID,
         bytes32 name, 
         bytes32 animalType, 
         bytes32 color, 
@@ -254,6 +256,7 @@ contract AnimalCare is Ownable, ByteToString, IAnimalCareSetDataBase, IAnimalCar
         bytes32 adoptionDate, 
         string remarks
     ) {
+        animalID = animalDataArray[_idx].animalID;
         name = animalDataArray[_idx].name;
         animalType = animalDataArray[_idx].animalType;
         color = animalDataArray[_idx].color;
@@ -264,29 +267,29 @@ contract AnimalCare is Ownable, ByteToString, IAnimalCareSetDataBase, IAnimalCar
     }
     
      function getAnimalDataArray(uint256[] _idx) external view returns(
-        bytes32[], 
+        uint256[],
         bytes32[], 
         bytes32[], 
         uint8[], 
         bytes32[], 
         bytes32[]
     ) {
+        uint256[] memory animalID = new uint256[](_idx.length);
         bytes32[] memory name = new bytes32[](_idx.length);
         bytes32[] memory animalType = new bytes32[](_idx.length);
-        bytes32[] memory color = new bytes32[](_idx.length);
         uint8[] memory gender = new uint8[](_idx.length);
         bytes32[] memory birth = new bytes32[](_idx.length);
         bytes32[] memory adoptionDate = new bytes32[](_idx.length);
         
          for(uint16 ui = 0; ui < _idx.length; ui++) {
+             animalID[ui] = animalDataArray[_idx[ui]].animalID;
              name[ui] = animalDataArray[_idx[ui]].name;
              animalType[ui] = animalDataArray[_idx[ui]].animalType;
-             color[ui] = animalDataArray[_idx[ui]].color;
              gender[ui] = animalDataArray[_idx[ui]].gender;
              birth[ui] = animalDataArray[_idx[ui]].birth;
              adoptionDate[ui] = animalDataArray[_idx[ui]].adoptionDate;
         }
         
-        return (name, animalType, color, gender, birth, adoptionDate);
+        return (animalID, name, animalType, gender, birth, adoptionDate);
     }
 }
