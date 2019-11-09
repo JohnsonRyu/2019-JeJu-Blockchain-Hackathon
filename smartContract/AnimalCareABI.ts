@@ -1,4 +1,4 @@
-const AnimalCareDataBaseContract = [
+const AnimalCareContract = [
 	{
 		"constant": false,
 		"inputs": [
@@ -310,6 +310,25 @@ const AnimalCareDataBaseContract = [
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_userDID",
+				"type": "uint256"
+			}
+		],
+		"name": "getFamily",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": false,
 		"inputs": [
 			{
@@ -603,6 +622,6 @@ const AnimalCareDataBaseContract = [
 ];
 
 export {
-  AnimalCareDataBaseContract
+  AnimalCareContract
 };
 
