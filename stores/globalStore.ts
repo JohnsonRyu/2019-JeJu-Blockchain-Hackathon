@@ -1,4 +1,5 @@
-import { observable, action } from "mobx";
+import { observable, action, values } from "mobx";
+import { parsingAPI } from "../commonAPI/parsingAPI" 
 
 export class GlobalStore {
   @observable name: string = "";
@@ -6,6 +7,21 @@ export class GlobalStore {
   @observable colorType: string = "";
   @observable gender: string = "0";
   @observable neutralization: string = "0";
+  @observable userDID: number = 0
+  @observable animalID: number = 0;
+  @observable tempAniName: string = "";
+
+  constructor() {
+    this.userDID = parsingAPI.makeDID();
+    this.animalID = parsingAPI.makeAnimalID();
+    console.log(this.userDID);
+    console.log(this.animalID);
+  }
+
+  @action
+  setTempAniName = (value: string) => {
+    this.tempAniName = value;
+  }
 
   @action
   updateName = (value: string) => {

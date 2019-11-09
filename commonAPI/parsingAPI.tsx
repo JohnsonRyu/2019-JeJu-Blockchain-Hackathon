@@ -45,6 +45,10 @@ class ParsingAPI {
     // from 1 - 100 * 990
     return Math.floor(Math.random() * 899999 + 100000);
   }
+
+  public makeAnimalID = () => {
+    return Math.floor(Math.random() * 8999999 + 1000000);
+  }
 }
 
 export const parsingAPI = new ParsingAPI();
