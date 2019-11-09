@@ -46,10 +46,10 @@ const StyledRowHalfTopPadding = styled(Grid.Row)`
 
 const StyledGrid = styled(Grid)`
   width: 100%;
-  background-color: #ffffff;
   border-radius: 1px;
   border-bottom: solid 1px rgba(46, 91, 255, 0.08);
   background-color: #ffffff;
+  padding-top: 64px !important;
 `
 
 const NonAuthUserHeader = () => (
