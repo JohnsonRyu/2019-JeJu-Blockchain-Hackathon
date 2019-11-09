@@ -30,9 +30,7 @@ const Main = () => (
     <StyledGridColumn>
       <CardOne />
       <CardOne />
-      <CardOne />
-      <CardOne />
-      <AddCard />
+      <AddCard isAuth={true} />
     </StyledGridColumn>
   </StyledGrid>
 )
