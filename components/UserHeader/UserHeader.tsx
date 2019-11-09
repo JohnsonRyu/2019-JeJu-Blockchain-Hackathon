@@ -31,7 +31,6 @@ const SubText = styled.span`
   font-size: 10px;
   color: #8798ad;
   float: left;
-
 `
 
 const StyledRowHalfBottomPadding = styled(Grid.Row)`
@@ -44,15 +43,15 @@ const StyledRowHalfTopPadding = styled(Grid.Row)`
 
 const StyledGrid = styled(Grid)`
   width: 100%;
-  background-color: #ffffff;
   border-radius: 1px;
   border-bottom: solid 1px rgba(46, 91, 255, 0.08);
   background-color: #ffffff;
+  padding-top: 64px !important;
 `
 
 const UserHeader = () => (
   <StyledGrid>
-    <Grid columns='equal'>
+    <Grid columns='equal' style={{ paddingLeft: 'none !important', paddingRight: 'none !important' }}>
       <Grid.Row>
         <Grid.Column width={4}>
           <Grid>
