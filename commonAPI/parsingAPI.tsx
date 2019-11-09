@@ -1,3 +1,5 @@
+import Router from "next/router";
+
 class ParsingAPI {
   public getDate = () => {
     const today = new Date();
@@ -30,6 +32,18 @@ class ParsingAPI {
     } else if (gender === 2) {
       return "무"
     }
+  }
+
+  public sendQuery = (pathname: string, did: number) => {
+    Router.push({
+      pathname: pathname,
+      query: { userDID: did }
+    });
+  };
+
+  public makeDID = () => {
+    // from 1 - 100 * 990
+    return Math.floor(Math.random() * 899999 + 100000);
   }
 }
 

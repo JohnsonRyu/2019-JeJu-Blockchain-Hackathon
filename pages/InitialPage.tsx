@@ -4,7 +4,7 @@ import NonAuthUserHeader from "../components/UserHeader/NoAuthUserHeader"
 import NavTopHeader from "../components/Common/NavTopHeader"
 import NavBottomFooter from "../components/Common/NavBottomFooter"
 
-const MainPage = () => (
+const InitialPage = () => (
   <PageLayout headerTitle=" " isBack={false} >
     {/* <NavTopHeader title="댕댕 VISA" /> */}
     <NonAuthUserHeader />
@@ -12,4 +12,4 @@ const MainPage = () => (
     {/* <NavBottomFooter /> */}
   </PageLayout>
 );
-export default MainPage;
+export default InitialPage;
