@@ -124,7 +124,7 @@ contract AnimalCare is Ownable, ByteToString, IAnimalCareSetDataBase, IAnimalCar
     AnimalData[] public animalDataArray;
     uint256 public animalDataCount;
    
-   mapping(uint256 => uint256[]) private mapFamily;
+    mapping(uint256 => uint256[]) private mapFamily;
     mapping(uint256 => uint256) private mapAnimalID;
     mapping(bytes32 => uint256[]) private mapName;
     mapping(bytes32 => uint256[]) private mapAnimalType;
@@ -207,6 +207,10 @@ contract AnimalCare is Ownable, ByteToString, IAnimalCareSetDataBase, IAnimalCar
         delete mapRemarks[animalDataArray[mapAnimalID[_animalID]].remarks];
         animalDataArray[mapAnimalID[_animalID]].remarks = _remarks;
         mapRemarks[_remarks].push(mapAnimalID[_animalID]);
+    }
+    
+    function getFamily(uint256 _userDID) external view returns (uint256[]) {
+        return mapFamily[_userDID];
     }
     
     function getAnimalID(uint256 _animalID) external view returns (uint256) {
