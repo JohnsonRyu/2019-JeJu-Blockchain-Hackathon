@@ -4,13 +4,17 @@ import { Grid, Card, Icon, Image, Button, Divider, Segment, GridColumn } from 's
 import CardMeta from './CardMeta';
 import CardHeader from './CardHeader';
 import Link from 'next/link'
-
+import { IAnimalData } from '../../constants/interface'
+import { parsingAPI } from '../../commonAPI/parsingAPI'
+const dogFace = require("../../assets/face.png")
+const dogFull = require("../../assets/sibaFull.png")
 
 interface ICardOneProps {
   children?: JSX.Element | JSX.Element[];
   text?: string;
   className?: string;
   backText?: string;
+  itemList: IAnimalData;
 }
 
 const GridButtonGroup = styled(GridColumn)`
@@ -67,19 +71,22 @@ const RightTopText = styled(Card.Header)`
   margin-bottom: 5px !important;
 `
 
-const CardOne = () => (
+
+const CardOne = (props: ICardOneProps) => (
   <StyledCard>
     <LeftAlignedCardContent>
       <RightTopText>댕댕이 VISA</RightTopText>
       <Image
         floated='left'
         size='tiny'
-        src='https://react.semantic-ui.com/images/avatar/large/matthew.png'
+        src={dogFace}
       />
-      <CardHeader title="코코" description="(여, 웰시코기)" />
-      <CardMeta title="생년월일" description="2018.01.25" />
-      <CardMeta title="등록번호" description="012749392" />
-      <CardMeta title="유효기간" description="2019.12.31" />
+      <CardHeader title={props.itemList.name}
+        description={"(" + parsingAPI.parseGender(props.itemList.gender) + ", " + props.itemList.animalType + ")"}
+      />
+      <CardMeta title="생년월일" description={props.itemList.birth} />
+      <CardMeta title="등록번호" description={props.itemList.animalID} />
+      <CardMeta title="등록일자" description={parsingAPI.getDate()} />
     </LeftAlignedCardContent>
     <Card.Content extra>
       <Grid columns={2} celled='internally' >
