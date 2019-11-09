@@ -75,7 +75,9 @@ const UserHeader = () => (
           </Grid>
           <Grid columns='equal'>
             <StyledRowHalfTopPadding>
-              <NoLeftPaddingColumn><StyledButton size="tiny" opacity="0.5">반려견 등록</StyledButton></NoLeftPaddingColumn>
+              <Link href="/RegisterPage">
+                <NoLeftPaddingColumn><StyledButton size="tiny" opacity="0.5">반려견 등록</StyledButton></NoLeftPaddingColumn>
+              </Link>
               <Link href="/VisaFlightPage">
                 <NoLeftPaddingColumn><StyledButton size="tiny">VISA 발급</StyledButton></NoLeftPaddingColumn>
               </Link>
