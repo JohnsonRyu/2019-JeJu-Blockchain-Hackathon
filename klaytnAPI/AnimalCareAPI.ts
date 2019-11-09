@@ -5,13 +5,6 @@ import caver from "../klaytn/caver"
 import { AnimalCareContract } from "../smartContract/AnimalCareABI";
 import { PRIVATE_KEY, ADMIN_ADRESS, ANIMAL_CARE_CA, SMART_CONTRACT_EXECUTION, GAS_LIMIT } from "../constants/define";
 
-// setFamily
-// setRegistAnimal
-// getFamily
-// getAnimalType
-// getAnimalData
-// getAnimalDataArray
-
 class AnimalCareAPI {
   animalCareCountract: any;
 
