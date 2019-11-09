@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components';
 import NavTopHeader from "../components/Common/NavTopHeader";
 import NavBottomFooter from "../components/Common/NavBottomFooter";
-import UserHeader from "../components/UserHeader/UserHeader";
+import NoAuthUserHeader from "../components/UserHeader/NoAuthUserHeader";
 
 interface IPageLayoutProps {
   children: JSX.Element | JSX.Element[];
@@ -45,10 +45,10 @@ const Container = styled.div`
   flex-direction: column; */
 `;
 
-const PageLayout = (props: IPageLayoutProps) => (
+const NonAuthPageLayout = (props: IPageLayoutProps) => (
   <Container>
     <NavTopHeader title={props.headerTitle} isBack={props.isBack} />
-    <UserHeader />
+    <NoAuthUserHeader />
     <StyledGrid>
       {props.children}
     </StyledGrid>
@@ -57,4 +57,4 @@ const PageLayout = (props: IPageLayoutProps) => (
 
 );
 
-export default PageLayout;
+export default NonAuthPageLayout;

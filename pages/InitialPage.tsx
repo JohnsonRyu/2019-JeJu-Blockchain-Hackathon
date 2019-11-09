@@ -5,7 +5,7 @@ import NavTopHeader from "../components/Common/NavTopHeader"
 import NavBottomFooter from "../components/Common/NavBottomFooter"
 
 const InitialPage = () => (
-  <PageLayout headerTitle=" " isBack={false} >
+  <PageLayout headerTitle="반려견 DID" isBack={false} >
     {/* <NavTopHeader title="댕댕 VISA" /> */}
     <NonAuthUserHeader />
     <Initial />
