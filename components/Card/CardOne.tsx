@@ -5,7 +5,8 @@ import CardMeta from './CardMeta';
 import CardHeader from './CardHeader';
 import Link from 'next/link'
 
-
+const dogFace = require("../../assets/face.png")
+const dogFull = require("../../assets/sibaFull.png")
 interface ICardOneProps {
   children?: JSX.Element | JSX.Element[];
   text?: string;
@@ -74,7 +75,7 @@ const CardOne = () => (
       <Image
         floated='left'
         size='tiny'
-        src='https://react.semantic-ui.com/images/avatar/large/matthew.png'
+        src={dogFace}
       />
       <CardHeader title="코코" description="(여, 웰시코기)" />
       <CardMeta title="생년월일" description="2018.01.25" />
