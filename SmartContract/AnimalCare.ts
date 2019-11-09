@@ -110,6 +110,10 @@ const AnimalCareDataBaseContract = [
 		"constant": false,
 		"inputs": [
 			{
+				"name": "_userDID",
+				"type": "uint256[]"
+			},
+			{
 				"name": "_animalID",
 				"type": "uint256[]"
 			},
@@ -131,10 +135,6 @@ const AnimalCareDataBaseContract = [
 			},
 			{
 				"name": "_birth",
-				"type": "bytes32[]"
-			},
-			{
-				"name": "_adoptionDate",
 				"type": "bytes32[]"
 			}
 		],
@@ -180,6 +180,20 @@ const AnimalCareDataBaseContract = [
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_userDID",
+				"type": "uint256"
+			}
+		],
+		"name": "setFamily",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

@@ -65,7 +65,7 @@ contract ByteToString {
 // ----------------------------------------------------------------------------
 interface IAnimalCareSetDataBase {
     function setRegistAnimal(uint256 _animalID, bytes32 _name, bytes32 _animalType, bytes32 _color, uint8 _gender, bytes32 _birth, bytes32 _adoptionDate, string _remarks) external;
-    function setMultiRegistAnimal(uint256[] _animalID, bytes32[] _name, bytes32[] _animalType, bytes32[] _color, uint8[] _gender,bytes32[] _birth, bytes32[] _adoptionDate) external;
+    function setMultiRegistAnimal(uint256[] _userDID, uint256[] _animalID, bytes32[] _name, bytes32[] _animalType, bytes32[] _color, uint8[] _gender,bytes32[] _birth) external;
 }
 // ----------------------------------------------------------------------------
 // @title IAnimalCareGetDataBase
@@ -107,9 +107,9 @@ interface IAnimalCareDataBaseEvent {
     event ChangeAnimalRemarksEvent(uint256 _animalID, string _beforeRemarks, string _afterRemarks);
 }
 // ----------------------------------------------------------------------------
-// @title AnimalCareDataBase
+// @title AnimalCare
 // ----------------------------------------------------------------------------
-contract AnimalCareDataBase is Ownable, ByteToString, IAnimalCareSetDataBase, IAnimalCareGetDataBase, IAnimalCareDataBaseEvent {
+contract AnimalCare is Ownable, ByteToString, IAnimalCareSetDataBase, IAnimalCareGetDataBase, IAnimalCareDataBaseEvent {
     struct AnimalData  {
         uint256 animalID;        // 동물 등록 번호
         bytes32 name;            // 이름
@@ -124,6 +124,7 @@ contract AnimalCareDataBase is Ownable, ByteToString, IAnimalCareSetDataBase, IA
     AnimalData[] public animalDataArray;
     uint256 public animalDataCount;
    
+   mapping(uint256 => uint256[]) private mapFamily;
     mapping(uint256 => uint256) private mapAnimalID;
     mapping(bytes32 => uint256[]) private mapName;
     mapping(bytes32 => uint256[]) private mapAnimalType;
@@ -133,13 +134,23 @@ contract AnimalCareDataBase is Ownable, ByteToString, IAnimalCareSetDataBase, IA
     mapping(bytes32 => uint256[]) private mapAdoptionDate;
     mapping(string => uint256[]) private mapRemarks;
     
+    function setFamily(uint256 _userDID) public onlyOwner {
+        setFamilyData(_userDID);
+    }
+    
+    function setFamilyData(uint256 _userDID) internal {
+        mapFamily[_userDID].push(animalDataCount);
+    }
+    
     function setRegistAnimal(uint256 _animalID, bytes32 _name, bytes32 _animalType, bytes32 _color, uint8 _gender, bytes32 _birth, bytes32 _adoptionDate, string _remarks) external onlyOwner {
         setAnimalArray(_animalID, _name, _animalType, _color, _gender, _birth, _adoptionDate, _remarks);
     }
     
-    function setMultiRegistAnimal(uint256[] _animalID, bytes32[] _name, bytes32[] _animalType, bytes32[] _color, uint8[] _gender,bytes32[] _birth, bytes32[] _adoptionDate) external onlyOwner {
+    // Admin Test용
+    function setMultiRegistAnimal(uint256[] _userDID, uint256[] _animalID, bytes32[] _name, bytes32[] _animalType, bytes32[] _color, uint8[] _gender,bytes32[] _birth) external onlyOwner {
         for(uint16 ui = 0; ui < _name.length; ui++) {
-            setAnimalArray(_animalID[ui], _name[ui], _animalType[ui], _color[ui], _gender[ui], _birth[ui], _adoptionDate[ui], "");
+            setAnimalArray(_animalID[ui], _name[ui], _animalType[ui], _color[ui], _gender[ui], _birth[ui], "", "");
+            setFamilyData(_userDID[ui]);
         }
     }
     

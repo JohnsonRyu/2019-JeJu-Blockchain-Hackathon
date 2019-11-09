@@ -1,5 +1,5 @@
-const AnimalCareDataBaseCA = "0xfFC9cc0Cf1aa6F0A7200259A33Ad71836f46f339";
+const AnimalCareCA = "0x22225274A897fF39396f77EEFd29f2c29d60518B";
 
 export {
-  AnimalCareDataBaseCA
+  AnimalCareCA
 };
