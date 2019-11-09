@@ -5,11 +5,9 @@ import CardMeta from './CardMeta';
 import AddCardHeader from './AddCardHeader';
 import Link from 'next/link'
 
-interface ICardOneProps {
+interface IAddCardProps {
   children?: JSX.Element | JSX.Element[];
-  text?: string;
-  className?: string;
-  backText?: string;
+  isAuth?: boolean;
 }
 
 
@@ -31,13 +29,21 @@ const CenterCardContent = styled(Card.Content)`
   justify-content:center;
 `
 
-const AddCard = () => (
+const AddCard = (props: IAddCardProps) => (
   <StyledCard>
-    <Link href="/RegisterPage">
-      <CenterCardContent>
-        <AddCardHeader title="반려견 등록하기" />
-      </CenterCardContent>
-    </Link>
+    {props.isAuth === true ?
+      <Link href="/RegisterPage">
+        <CenterCardContent>
+          <AddCardHeader title="반려견 등록하기" />
+        </CenterCardContent>
+      </Link>
+      :
+      <Link href="/VerificationPage">
+        <CenterCardContent>
+          <AddCardHeader title="반려견 등록하기" />
+        </CenterCardContent>
+      </Link>
+    }
   </StyledCard >
 )
 
