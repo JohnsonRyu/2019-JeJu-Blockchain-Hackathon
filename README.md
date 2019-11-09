@@ -1,5 +1,5 @@
 # 댕댕이가 제주부린다.
-> React + TypeScript + Next.js + Semantic UI + Styled Components + Klaytn
+> React + TypeScript + Next.js + Semantic UI + Styled Components + caver-js(Klaytn)
 
 ## Notice
 2019 제주 블록체인 해커톤
