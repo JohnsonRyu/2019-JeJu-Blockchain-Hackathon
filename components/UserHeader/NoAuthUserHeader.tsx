@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Grid, Card, Icon, Image, Button, Divider, Segment, GridColumn, Container } from 'semantic-ui-react'
 import Link from 'next/link'
 
+const defaultUserImage = require("../../assets/defaultFace.png");
+
 const StyledButton = styled(Button)`
   background-color: #2e5bff !important;
   opacity: ${props => props.opacity};
@@ -28,10 +30,10 @@ const MainText = styled.span`
 `
 
 const SubText = styled.span`
-  font-size: 10px;
-  color: #8798ad;
+  font-size: 13px;
+  font-weight: 500;
+  color: #2e384d;
   float: left;
-
 `
 
 const StyledRowHalfBottomPadding = styled(Grid.Row)`
@@ -50,7 +52,7 @@ const StyledGrid = styled(Grid)`
   background-color: #ffffff;
 `
 
-const UserHeader = () => (
+const NonAuthUserHeader = () => (
   <StyledGrid>
     <Grid columns='equal'>
       <Grid.Row>
@@ -61,7 +63,7 @@ const UserHeader = () => (
                 <Image
                   circular
                   size="tiny"
-                  src='https://react.semantic-ui.com/images/avatar/large/molly.png'
+                  src={defaultUserImage}
                 />
               </Grid.Column>
             </Grid.Row>
@@ -70,15 +72,15 @@ const UserHeader = () => (
         <Grid.Column>
           <Grid columns='equal'>
             <StyledRowHalfBottomPadding>
-              <NoPaddingColumn width={3}><MainText>김유진</MainText></NoPaddingColumn>
-              <NoPaddingColumn><SubText>Yujin Kim</SubText></NoPaddingColumn>
+              {/* <NoPaddingColumn width={16}><MainText>댕댕비자에 오신 것을 환영합니다!</MainText></NoPaddingColumn> */}
+              <NoPaddingColumn><SubText>댕댕비자에 오신 것을 환영합니다!</SubText></NoPaddingColumn>
             </StyledRowHalfBottomPadding>
           </Grid>
           <Grid columns='equal'>
             <StyledRowHalfTopPadding>
-              <NoLeftPaddingColumn><StyledButton size="tiny" opacity="0.5">반려견 등록</StyledButton></NoLeftPaddingColumn>
-              <Link href="/VisaFlightPage">
-                <NoLeftPaddingColumn><StyledButton size="tiny">VISA 발급</StyledButton></NoLeftPaddingColumn>
+              <NoLeftPaddingColumn><StyledButton size="tiny" opacity="0.5">이용방법</StyledButton></NoLeftPaddingColumn>
+              <Link href="/VerificationPage">
+                <NoLeftPaddingColumn><StyledButton size="tiny">신분인증</StyledButton></NoLeftPaddingColumn>
               </Link>
             </StyledRowHalfTopPadding>
           </Grid>
@@ -88,4 +90,4 @@ const UserHeader = () => (
   </StyledGrid>
 )
 
-export default UserHeader;
+export default NonAuthUserHeader;

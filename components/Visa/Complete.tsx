@@ -9,15 +9,6 @@ import Link from 'next/link'
 
 const cardImage = require("../../assets/visa/complete.png");
 
-interface IRegisterProps {
-  children: JSX.Element | JSX.Element[];
-  width?: string;
-  height?: string;
-  isClicked?: boolean;
-  primary?: boolean;
-}
-
-
 const MainText = styled.div`
   font-family: 'AppleSDGothicNeo';
   font-size: 22px;
