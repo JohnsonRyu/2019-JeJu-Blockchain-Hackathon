@@ -7,11 +7,13 @@ import UserHeader from "../UserHeader/UserHeader"
 import NavTopHeader from "../Common/NavTopHeader"
 import Link from 'next/link'
 import { SyncLoader } from 'react-spinners';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { useRouter } from 'next/router'
 import Router from 'next/router'
 import { animalCareAPI } from '../../klaytnAPI/AnimalCareAPI';
+import { GlobalStore } from '../../stores/globalStore';
+import { STORE } from '../../constants/stores';
 
 // const StyledGrid = styled(Grid)`
 //   text-align: left;
@@ -83,9 +85,14 @@ const override = css`
     border-color: red;
 `;
 
+interface IRegisterTwoProps {
+  globalStore?: GlobalStore;
+}
+
 // <Card.Group> 으로 카드 그룹 묶으면 가운데 정렬되지 않음
+@inject(STORE.globalStore)
 @observer
-export default class RegisterTwo extends React.Component {
+export default class RegisterTwo extends React.Component<IRegisterTwoProps> {
   @observable loading: boolean = false;
   @observable loadingDone: boolean = false;
 
@@ -99,10 +106,18 @@ export default class RegisterTwo extends React.Component {
   onClick = async() => {
     this.loading = !this.loading;
 
-    // 여기에 받은 데이터 넣어줄꺼임
+    console.error(this.props.globalStore.name);
+    console.error(this.props.globalStore.animalType);
+    console.error(this.props.globalStore.colorType);
+    console.error(this.props.globalStore.gender);
+    console.error(this.props.globalStore.neutralization);
+
+    // 여기에 받은 데이터 넣어줄꺼임 #1206
     await animalCareAPI.txSetRegistAnimal(
       "4210814", "류기혁", "포메리안", "황금", 
       "0", "1992.12.06", "2010.12.20", "ㄹㄷㅈㅂㄹ");
+
+    this.props.globalStore.clearFirstRegistPage();
 
     setTimeout(
       function() {this.loadingDone = true;}
