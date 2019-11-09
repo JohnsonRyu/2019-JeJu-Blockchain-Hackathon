@@ -6,6 +6,8 @@ import CardHeader from './CardHeader';
 import Link from 'next/link'
 import { IAnimalData } from '../../constants/interface'
 import { parsingAPI } from '../../commonAPI/parsingAPI'
+import { observer } from 'mobx-react';
+import { observable } from 'mobx';
 const dogFace = require("../../assets/face.png")
 const dogFull = require("../../assets/sibaFull.png")
 
@@ -71,36 +73,53 @@ const RightTopText = styled(Card.Header)`
   margin-bottom: 5px !important;
 `
 
+@observer
+export default class CardOne extends React.Component<ICardOneProps> {
 
-const CardOne = (props: ICardOneProps) => (
-  <StyledCard>
-    <LeftAlignedCardContent>
-      <RightTopText>댕댕이 VISA</RightTopText>
-      <Image
-        floated='left'
-        size='tiny'
-        src={dogFace}
-      />
-      <CardHeader title={props.itemList.name}
-        description={"(" + parsingAPI.parseGender(props.itemList.gender) + ", " + props.itemList.animalType + ")"}
-      />
-      <CardMeta title="생년월일" description={props.itemList.birth} />
-      <CardMeta title="등록번호" description={props.itemList.animalID} />
-      <CardMeta title="등록일자" description={parsingAPI.getDate()} />
-    </LeftAlignedCardContent>
-    <Card.Content extra>
-      <Grid columns={2} celled='internally' >
-        <GridButtonGroup>
-          <Link href="/VisaFlightPage">
-            <ColoredTextButton>VISA 발급</ColoredTextButton>
-          </Link>
-        </GridButtonGroup>
-        <GridButtonGroup>
-          <NoneColoredTextButton>이용내역</NoneColoredTextButton>
-        </GridButtonGroup>
-      </Grid>
-    </Card.Content>
-  </StyledCard>
-)
+  @observable gender = ""
 
-export default CardOne;
+  parseGender() {
+    if (this.props.itemList.gender.toString() === "0") {
+      this.gender = "여"
+    } else if (this.props.itemList.gender.toString() === "1") {
+      this.gender = "남"
+    } else {
+      this.gender = "무"
+    }
+  }
+
+  render() {
+    this.parseGender();
+    console.error(this.gender)
+    return(
+      <StyledCard>
+      <LeftAlignedCardContent>
+        <RightTopText>댕댕이 VISA</RightTopText>
+        <Image
+          floated='left'
+          size='tiny'
+          src={dogFace}
+        />
+        <CardHeader title={this.props.itemList.name}
+          description={"(" + this.gender + ", " + this.props.itemList.animalType + ")"}
+        />
+        <CardMeta title="생년월일" description={this.props.itemList.birth} />
+        <CardMeta title="등록번호" description={this.props.itemList.animalID} />
+        <CardMeta title="등록일자" description={parsingAPI.getDate()} />
+      </LeftAlignedCardContent>
+      <Card.Content extra>
+        <Grid columns={2} celled='internally' >
+          <GridButtonGroup>
+            <Link href="/VisaFlightPage">
+              <ColoredTextButton>VISA 발급</ColoredTextButton>
+            </Link>
+          </GridButtonGroup>
+          <GridButtonGroup>
+            <NoneColoredTextButton>이용내역</NoneColoredTextButton>
+          </GridButtonGroup>
+        </Grid>
+      </Card.Content>
+    </StyledCard>
+    );
+  }
+}

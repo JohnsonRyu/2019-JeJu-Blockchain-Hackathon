@@ -96,6 +96,27 @@ export default class RegisterTwo extends React.Component<IRegisterTwoProps> {
   @observable loading: boolean = false;
   @observable loadingDone: boolean = false;
 
+  @observable birth: string = "";
+  @observable adoptionDate: string = "";
+
+  @observable remarks: boolean[] = [false, false, false, false, false, false, false, false];
+
+  @action
+  remarksClick = (_type: number) => {
+    this.remarks[_type] = !this.remarks[_type];
+  }
+
+  @action
+  updateBirth = (value: string) => {
+    this.birth = value;
+  };
+
+  @action
+  updateAdoptionDate = (value: string) => {
+    this.adoptionDate = value;
+  };
+  
+
   handler = () => {
     Router.push({
       pathname: '/RegisterThirdPage'
@@ -105,25 +126,37 @@ export default class RegisterTwo extends React.Component<IRegisterTwoProps> {
   @action
   onClick = async() => {
     this.loading = !this.loading;
+    let gender: string = ""
+    // 중성
+    if(this.props.globalStore.neutralization === "1") {
+      gender = "2";
+    } else {
+      if(this.props.globalStore.gender === "1") {
+        gender = "1";
+      } else {
+        gender = "0"
+      }
+    }
 
-    console.error(this.props.globalStore.name);
-    console.error(this.props.globalStore.animalType);
-    console.error(this.props.globalStore.colorType);
-    console.error(this.props.globalStore.gender);
-    console.error(this.props.globalStore.neutralization);
+    const animalName = this.props.globalStore.name;
+    const animalType = this.props.globalStore.animalType;
+    const animalColor = this.props.globalStore.colorType;
+    this.props.globalStore.setTempAniName(animalName);
 
-    // 여기에 받은 데이터 넣어줄꺼임 #1206
-    await animalCareAPI.txSetRegistAnimal(
-      "4210814", "류기혁", "포메리안", "황금", 
-      "0", "1992.12.06", "2010.12.20", "ㄹㄷㅈㅂㄹ");
+    await animalCareAPI.txSetFamily(this.props.globalStore.userDID.toString());
+    setTimeout(
+      async function() {
+        await animalCareAPI.txSetRegistAnimal(
+          this.props.globalStore.animalID.toString(), animalName, animalType, animalColor, 
+          gender, this.birth, this.adoptionDate, "");
+
+        this.loadingDone = true;
+      }
+      .bind(this),
+      4000
+  );
 
     this.props.globalStore.clearFirstRegistPage();
-
-    setTimeout(
-      function() {this.loadingDone = true;}
-      .bind(this),
-      1500
-  );
   }
 
   render() {
@@ -144,23 +177,23 @@ export default class RegisterTwo extends React.Component<IRegisterTwoProps> {
           <Form>
           <StyledFormField>
             <MainText>입양일을 입력해주세요</MainText>
-            <input type="text" placeholder='20171022' />
+            <input value={this.birth} onChange={value => this.updateBirth(value.target.value)} type="text" placeholder='20171022' />
           </StyledFormField>
           <StyledFormField>
             <MainText>생년월일을 입력해주세요</MainText>
-            <input type="text" placeholder='20171022' />
+            <input value={this.adoptionDate} onChange={value => this.updateAdoptionDate(value.target.value)} type="text" placeholder='20171022' />
           </StyledFormField>
           <StyledFormField>
             <MainText>병력을 적어주세요</MainText>
             <DivFloat>
-              <SelectButton basic size="mini">슬개골</SelectButton>
-              <SelectButton basic size="mini">결석</SelectButton>
-              <SelectButton basic size="mini">습진</SelectButton>
-              <SelectButton basic size="mini">눈물자국</SelectButton>
-              <SelectButton basic size="mini">각막손상</SelectButton>
-              <SelectButton basic size="mini">기관지협착증</SelectButton>
-              <SelectButton basic size="mini">발작</SelectButton>
-              <SelectButton basic size="mini">피부질환</SelectButton>
+              <SelectButton active={this.remarks[0]} onClick={() => this.remarksClick(0)} basic size="mini">슬개골</SelectButton>
+              <SelectButton active={this.remarks[1]} onClick={() => this.remarksClick(1)} basic size="mini">결석</SelectButton>
+              <SelectButton active={this.remarks[2]} onClick={() => this.remarksClick(2)} basic size="mini">습진</SelectButton>
+              <SelectButton active={this.remarks[3]} onClick={() => this.remarksClick(3)} basic size="mini">눈물자국</SelectButton>
+              <SelectButton active={this.remarks[4]} onClick={() => this.remarksClick(4)} basic size="mini">각막손상</SelectButton>
+              <SelectButton active={this.remarks[5]} onClick={() => this.remarksClick(5)} basic size="mini">기관지협착증</SelectButton>
+              <SelectButton active={this.remarks[6]} onClick={() => this.remarksClick(6)} basic size="mini">발작</SelectButton>
+              <SelectButton active={this.remarks[7]} onClick={() => this.remarksClick(7)} basic size="mini">피부질환</SelectButton>
             </DivFloat>
             <TextArea placeholder='기타 (30자 이내)' />
           </StyledFormField>

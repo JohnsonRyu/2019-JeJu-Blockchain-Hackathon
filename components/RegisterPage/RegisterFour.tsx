@@ -6,6 +6,9 @@ import AddCard from "../Card/AddCard"
 import UserHeader from "../UserHeader/UserHeader"
 import Car from "../Common/NavTopHeader"
 import Link from 'next/link'
+import { GlobalStore } from '../../stores/globalStore';
+import { inject, observer } from 'mobx-react';
+import { STORE } from '../../constants/stores';
 
 const cardImage = require("../../assets/visa.png");
 
@@ -100,13 +103,20 @@ const StyledImage = styled.img`
   /* margin-right: 0px !important; */
 `
 
-const RegisterFour = () => {
-  return (
-    <StyledDiv>
+interface IRegisterFourProps {
+  globalStore?: GlobalStore;
+}
+
+@inject(STORE.globalStore)
+@observer
+export default class RegisterFour extends React.Component<IRegisterFourProps> {
+  render() {
+    return(
+      <StyledDiv>
       <LeftDiv>
         <TextDiv>
           <MainText>증명서에 들어갈<br />
-            <BoldText>코코</BoldText>의 사진을 추가해주세요.</MainText>
+            <BoldText>{this.props.globalStore.tempAniName}</BoldText>의 사진을 추가해주세요.</MainText>
         </TextDiv>
         <TextDiv>
           <SubText>등록시 카드에 사진이 적용됩니다.</SubText>
@@ -122,7 +132,6 @@ const RegisterFour = () => {
         </Link>
       </LeftDiv >
     </StyledDiv >
-  );
+    );
+  }
 }
-
-export default RegisterFour;
