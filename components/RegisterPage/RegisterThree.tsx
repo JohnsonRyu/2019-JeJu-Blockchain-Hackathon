@@ -6,6 +6,10 @@ import AddCard from "../Card/AddCard"
 import UserHeader from "../UserHeader/UserHeader"
 import NavTopHeader from "../Common/NavTopHeader"
 import Link from 'next/link'
+import { observer, inject } from 'mobx-react';
+import { observable, action } from 'mobx';
+import { GlobalStore } from '../../stores/globalStore';
+import { STORE } from '../../constants/stores';
 
 interface IRegisterProps {
   children: JSX.Element | JSX.Element[];
@@ -88,11 +92,22 @@ const NormalSubText = styled(BoldSubText)`
   font-weight: normal;
 `
 
-const RegisterThree = () => {
-  const [value, setValue] = useState('2500');
+interface IRegisterThreeProps {
+  globalStore?: GlobalStore;
+}
 
-  return (
-    <StyledDiv>
+@inject(STORE.globalStore)
+@observer
+export default class RegisterThree extends React.Component<IRegisterThreeProps> {
+  @observable value = "2500";
+
+  @action
+  setValue(_value: string) {
+    this.value = _value;
+  }
+  render() {
+    return(
+      <StyledDiv>
       <LeftDiv>
         <TextDiv>
           <MainText><BoldText>수령방법</BoldText>을 <br />선택해주세요.</MainText>
@@ -106,8 +121,8 @@ const RegisterThree = () => {
               label='우편배송 (+500원)'
               name='radioGroup'
               value='3,500'
-              checked={value === '3,500'}
-              onChange={() => setValue('3,500')}
+              checked={this.value === '3,500'}
+              onChange={() => this.setValue('3,500')}
             />
           </StyledFormField>
           <StyledFormField>
@@ -115,8 +130,8 @@ const RegisterThree = () => {
               label='등기배송 (+2,500원)'
               name='radioGroup'
               value='5,500'
-              checked={value === '5,500'}
-              onChange={() => setValue('5,500')}
+              checked={this.value === '5,500'}
+              onChange={() => this.setValue('5,500')}
             />
           </StyledFormField>
           <StyledFormField>
@@ -124,21 +139,21 @@ const RegisterThree = () => {
               label='현장방문'
               name='radioGroup'
               value='3,000'
-              checked={value === '3,000'}
-              onChange={() => setValue('3,000')}
+              checked={this.value === '3,000'}
+              onChange={() => this.setValue('3,000')}
             />
           </StyledFormField>
 
         </Form>
         <div style={{ marginTop: '300px' }}>
-          <NormalSubText><BoldSubText>총 결제 비용 </BoldSubText>{value}원</NormalSubText>
+          <NormalSubText><BoldSubText>총 결제 비용 </BoldSubText>{this.value}원</NormalSubText>
         </div>
         <Link href="/RegisterFourthPage">
           <SubmitButton type="submit" style={{ marginTop: '24px' }}>다음</SubmitButton>
         </Link>
       </LeftDiv >
     </StyledDiv >
-  );
-}
 
-export default RegisterThree;
+    );
+  }
+}
