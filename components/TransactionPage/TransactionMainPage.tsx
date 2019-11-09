@@ -5,8 +5,8 @@ import { observable } from "mobx";
 import { observer } from "mobx-react";
 
 import caver from "../../klaytn/caver"
-import {CountContract} from "../../SmartContract/ABI";
-import {CountContractCA} from "../../SmartContract/CA";
+// import {CountContract} from "../../SmartContract/ABI";
+// import {CountContractCA} from "../../SmartContract/CA";
 
 
 
@@ -27,7 +27,7 @@ export class TransactionMainPage extends React.Component {
   componentDidMount() {
     caver.klay.accounts.wallet.add(this.sender_key)
 
-    this.countContract = new caver.klay.Contract(CountContract, CountContractCA);
+    // this.countContract = new caver.klay.Contract(CountContract, CountContractCA);
   }
 
   sendTransaction = () => {
