@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components';
 import { Grid, Card, Icon, Image, Button, Divider, Segment, GridColumn, Container } from 'semantic-ui-react'
 import Link from 'next/link'
+import { animalCareAPI } from '../../klaytnAPI/AnimalCareAPI';
 
 const StyledButton = styled(Button)`
   background-color: #2e5bff !important;
@@ -47,43 +48,54 @@ const StyledGrid = styled(Grid)`
   border-bottom: solid 1px rgba(46, 91, 255, 0.08);
   background-color: #ffffff;
 `
+class UserHeader extends Component {
 
-const UserHeader = () => (
-  <StyledGrid>
-    <Grid columns='equal'>
-      <Grid.Row>
-        <Grid.Column width={4}>
-          <Grid>
-            <Grid.Row>
-              <Grid.Column>
-                <Image
-                  circular
-                  size="tiny"
-                  src='https://react.semantic-ui.com/images/avatar/large/molly.png'
-                />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Grid.Column>
-        <Grid.Column>
-          <Grid columns='equal'>
-            <StyledRowHalfBottomPadding>
-              <NoPaddingColumn width={3}><MainText>김유진</MainText></NoPaddingColumn>
-              <NoPaddingColumn><SubText>Yujin Kim</SubText></NoPaddingColumn>
-            </StyledRowHalfBottomPadding>
-          </Grid>
-          <Grid columns='equal'>
-            <StyledRowHalfTopPadding>
-              <NoLeftPaddingColumn><StyledButton size="tiny" opacity="0.5">이용방법</StyledButton></NoLeftPaddingColumn>
-              <Link href="/VerificationPage">
-                <NoLeftPaddingColumn><StyledButton size="tiny">신분인증</StyledButton></NoLeftPaddingColumn>
-              </Link>
-            </StyledRowHalfTopPadding>
-          </Grid>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  </StyledGrid>
-)
+  test = async() => {
+
+    console.error(await animalCareAPI.txGetAnimalDataArray([]));
+    console.error(await animalCareAPI.txGetAnimalData("2"));
+
+  }
+
+  render() {
+    return(
+      <StyledGrid>
+        <Grid columns='equal'>
+          <Grid.Row>
+            <Grid.Column width={4}>
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column>
+                    <Image
+                      circular
+                      size="tiny"
+                      src='https://react.semantic-ui.com/images/avatar/large/molly.png'
+                    />
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </Grid.Column>
+            <Grid.Column>
+              <Grid columns='equal'>
+                <StyledRowHalfBottomPadding>
+                  <NoPaddingColumn width={3}><MainText>김유진</MainText></NoPaddingColumn>
+                  <NoPaddingColumn><SubText>Yujin Kim</SubText></NoPaddingColumn>
+                </StyledRowHalfBottomPadding>
+              </Grid>
+              <Grid columns='equal'>
+                <StyledRowHalfTopPadding>
+                  <NoLeftPaddingColumn><StyledButton onClick={() => this.test()} size="tiny" opacity="0.5">이용방법</StyledButton></NoLeftPaddingColumn>
+                  <Link href="/VerificationPage">
+                    <NoLeftPaddingColumn><StyledButton size="tiny">신분인증</StyledButton></NoLeftPaddingColumn>
+                  </Link>
+                </StyledRowHalfTopPadding>
+              </Grid>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </StyledGrid>
+    );
+  }
+}
 
 export default UserHeader;

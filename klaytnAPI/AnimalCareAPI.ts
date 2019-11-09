@@ -4,6 +4,7 @@ import * as ethers from "ethers";
 import caver from "../klaytn/caver"
 import { AnimalCareContract } from "../smartContract/AnimalCareABI";
 import { PRIVATE_KEY, ADMIN_ADRESS, ANIMAL_CARE_CA, SMART_CONTRACT_EXECUTION, GAS_LIMIT } from "../constants/define";
+import { IAnimalData } from "../constants/interface";
 
 class AnimalCareAPI {
   animalCareCountract: any;
@@ -36,11 +37,46 @@ class AnimalCareAPI {
 
   public txGetAnimalType = async (_animalType: string) => {
     const byteAnimalType = ethers.utils.formatBytes32String(_animalType);
+    console.warn(byteAnimalType)
     return await this.animalCareCountract.methods.getAnimalType(byteAnimalType).call();
   }
 
   public txGetAnimalData = async (_idx: string) => {
-    return await this.animalCareCountract.methods.getAnimalData(_idx).call();
+    return await this.animalCareCountract.methods.getAnimalData(_idx).call()
+    .then((data: any) => {
+      const animalData: IAnimalData = {
+        animalID: data.animalID,
+        name: ethers.utils.parseBytes32String(data.name),
+        animalType: ethers.utils.parseBytes32String(data.animalType),
+        gender: data.gender,
+        birth: ethers.utils.parseBytes32String(data.birth),
+        adoptionDate: ethers.utils.parseBytes32String(data.adoptionDate),
+        remarks: data.remarks,
+      };
+      return animalData;
+    });
+  }
+
+  public txGetAnimalDataArray = async (_idx: string[]) => {
+    return await this.animalCareCountract.methods.getAnimalDataArray(_idx).call()
+    .then((data: any) => {
+      let animalDataArray: Array<IAnimalData> = [];
+
+      for (let i = 0; i < data[0].length; i++) {
+        const animalData: IAnimalData = {
+          animalID: data[0][i],
+          name: ethers.utils.parseBytes32String(data[1][i]),
+          animalType: ethers.utils.parseBytes32String(data[2][i]),
+          gender: data[3][i],
+          birth: ethers.utils.parseBytes32String(data[4][i]),
+          adoptionDate: ethers.utils.parseBytes32String(data[5][i]),
+        };
+
+        animalDataArray.push(animalData);
+      }
+
+      return animalDataArray;
+    });
   }
 
   private sendTransaction = async (encodedAbi) => {
