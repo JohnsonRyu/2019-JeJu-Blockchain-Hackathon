@@ -45,10 +45,9 @@ const Container = styled.div`
   flex-direction: column; */
 `;
 
-const PageLayout = (props: IPageLayoutProps) => (
+const PlainPageLayout = (props: IPageLayoutProps) => (
   <Container>
     <NavTopHeader title={props.headerTitle} isBack={props.isBack} />
-    <UserHeader />
     <StyledGrid>
       {props.children}
     </StyledGrid>
@@ -57,4 +56,4 @@ const PageLayout = (props: IPageLayoutProps) => (
 
 );
 
-export default PageLayout;
+export default PlainPageLayout;
