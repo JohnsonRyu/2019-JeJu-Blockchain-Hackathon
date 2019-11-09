@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components';
-import { Grid, Card, Icon, Image, Button, Divider, Segment, GridColumn } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 import CardOne from "../Card/CardOne"
 import AddCard from "../Card/AddCard"
-import UserHeader from "../UserHeader/UserHeader"
-import NavTopHeader from "../Common/NavTopHeader"
+import { IAnimalData } from '../../constants/interface'
 
 const StyledGrid = styled(Grid)`
   text-align: center;
@@ -20,16 +19,28 @@ const StyledGrid = styled(Grid)`
 
 const StyledGridColumn = styled(Grid.Column)`
   max-width: 450px;
-
-
-  /* height: 150vh !important; */
 `
-// <Card.Group> 으로 카드 그룹 묶으면 가운데 정렬되지 않음
+const data = Array(2)
+  .fill(1)
+  .map(() => {
+    return {
+      animalID: "0124358321",
+      name: "튼튼이",
+      animalType: "리트리버",
+      color: "금색",
+      gender: 0,
+      birth: "2019.11.5",
+      adoptionDate: "2019.11.10",
+      remarks: ""
+    }
+  })
+
 const Main = () => (
   <StyledGrid>
     <StyledGridColumn>
-      <CardOne />
-      <CardOne />
+      {data.map((d: IAnimalData, i: number) => (
+        <CardOne itemList={d} key={i} />
+      ))}
       <AddCard isAuth={true} />
     </StyledGridColumn>
   </StyledGrid>
