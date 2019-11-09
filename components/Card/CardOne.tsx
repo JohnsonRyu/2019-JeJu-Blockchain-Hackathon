@@ -5,7 +5,7 @@ import CardMeta from './CardMeta';
 import CardHeader from './CardHeader';
 import Link from 'next/link'
 import { IAnimalData } from '../../constants/interface'
-import { functionService } from '../../service/functions'
+import { parsingAPI } from '../../commonAPI/parsingAPI'
 const dogFace = require("../../assets/face.png")
 const dogFull = require("../../assets/sibaFull.png")
 
@@ -82,11 +82,11 @@ const CardOne = (props: ICardOneProps) => (
         src={dogFace}
       />
       <CardHeader title={props.itemList.name}
-        description={"(" + functionService.parseGender(props.itemList.gender) + ", " + props.itemList.animalType + ")"}
+        description={"(" + parsingAPI.parseGender(props.itemList.gender) + ", " + props.itemList.animalType + ")"}
       />
       <CardMeta title="생년월일" description={props.itemList.birth} />
       <CardMeta title="등록번호" description={props.itemList.animalID} />
-      <CardMeta title="등록일자" description={functionService.getDate()} />
+      <CardMeta title="등록일자" description={parsingAPI.getDate()} />
     </LeftAlignedCardContent>
     <Card.Content extra>
       <Grid columns={2} celled='internally' >
