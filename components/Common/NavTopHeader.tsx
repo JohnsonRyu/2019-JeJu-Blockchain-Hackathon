@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { Grid, Card, Icon, Image, Button, Divider, Segment, GridColumn, Container } from 'semantic-ui-react'
+import Router from 'next/router';
 
 const menuImg = require('../../assets/menu.svg')
 const notiImg = require('../../assets/noti.svg')
@@ -47,7 +48,7 @@ const NavTopHeader = (props: INavTopHeader) => (
   <MainGrid columns='equal'>
     <Grid.Row>
       <Grid.Column>
-        {props.isBack ? <StyledIcon name="arrow left" /> : <StyledImage src={menuImg} />}
+        {props.isBack ? <StyledIcon name="arrow left" onClick={() => Router.back()} /> : <StyledImage src={menuImg} />}
         {/* <StyledImage src={menuImg} /> */}
       </Grid.Column>
       <Grid.Column>
