@@ -1,4 +1,4 @@
-const AnimalCareDataBaseContract = [
+const AnimalCareContract = [
 	{
 		"constant": false,
 		"inputs": [
@@ -603,6 +603,6 @@ const AnimalCareDataBaseContract = [
 ];
 
 export {
-  AnimalCareDataBaseContract
+  AnimalCareContract
 };
 
