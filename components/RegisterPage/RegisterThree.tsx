@@ -99,60 +99,65 @@ interface IRegisterThreeProps {
 @inject(STORE.globalStore)
 @observer
 export default class RegisterThree extends React.Component<IRegisterThreeProps> {
-  @observable value = "2500";
+  @observable value = "3,000";
 
   @action
   setValue(_value: string) {
     this.value = _value;
   }
-  render() {
-    return(
-      <StyledDiv>
-      <LeftDiv>
-        <TextDiv>
-          <MainText><BoldText>수령방법</BoldText>을 <br />선택해주세요.</MainText>
-        </TextDiv>
-        <TextDiv>
-          <SubText>등록인식표 등 기본 발급비 3,000원 결제가 필요합니다.</SubText>
-        </TextDiv>
-        <Form>
-          <StyledFormField>
-            <Radio
-              label='우편배송 (+500원)'
-              name='radioGroup'
-              value='3,500'
-              checked={this.value === '3,500'}
-              onChange={() => this.setValue('3,500')}
-            />
-          </StyledFormField>
-          <StyledFormField>
-            <Radio
-              label='등기배송 (+2,500원)'
-              name='radioGroup'
-              value='5,500'
-              checked={this.value === '5,500'}
-              onChange={() => this.setValue('5,500')}
-            />
-          </StyledFormField>
-          <StyledFormField>
-            <Radio
-              label='현장방문'
-              name='radioGroup'
-              value='3,000'
-              checked={this.value === '3,000'}
-              onChange={() => this.setValue('3,000')}
-            />
-          </StyledFormField>
 
-        </Form>
-        <div style={{ marginTop: '300px' }}>
-          <NormalSubText><BoldSubText>총 결제 비용 </BoldSubText>{this.value}원</NormalSubText>
-        </div>
-        <Link href="/RegisterFourthPage">
-          <SubmitButton type="submit" style={{ marginTop: '24px' }}>다음</SubmitButton>
-        </Link>
-      </LeftDiv >
-    </StyledDiv >
+  componentDidMount = () => {
+    window.scrollTo(0, 0);
+  }
+
+  render() {
+    return (
+      <StyledDiv>
+        <LeftDiv>
+          <TextDiv>
+            <MainText><BoldText>수령방법</BoldText>을 <br />선택해주세요.</MainText>
+          </TextDiv>
+          <TextDiv>
+            <SubText>등록인식표 등 기본 발급비 3,000원 결제가 필요합니다.</SubText>
+          </TextDiv>
+          <Form>
+            <StyledFormField>
+              <Radio
+                label='우편배송 (+500원)'
+                name='radioGroup'
+                value='3,500'
+                checked={this.value === '3,500'}
+                onChange={() => this.setValue('3,500')}
+              />
+            </StyledFormField>
+            <StyledFormField>
+              <Radio
+                label='등기배송 (+2,500원)'
+                name='radioGroup'
+                value='5,500'
+                checked={this.value === '5,500'}
+                onChange={() => this.setValue('5,500')}
+              />
+            </StyledFormField>
+            <StyledFormField>
+              <Radio
+                label='현장방문'
+                name='radioGroup'
+                value='3,000'
+                checked={this.value === '3,000'}
+                onChange={() => this.setValue('3,000')}
+              />
+            </StyledFormField>
+
+          </Form>
+          <div style={{ marginTop: '300px' }}>
+            <NormalSubText><BoldSubText>총 결제 비용 </BoldSubText>{this.value}원</NormalSubText>
+          </div>
+          <Link href="/RegisterFourthPage">
+            <SubmitButton type="submit" style={{ marginTop: '24px' }}>다음</SubmitButton>
+          </Link>
+        </LeftDiv >
+      </StyledDiv >
 
     );
   }
