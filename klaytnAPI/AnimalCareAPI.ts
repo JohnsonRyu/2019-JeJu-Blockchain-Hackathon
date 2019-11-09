@@ -8,6 +8,7 @@ import { PRIVATE_KEY, ADMIN_ADRESS, ANIMAL_CARE_CA, SMART_CONTRACT_EXECUTION, GA
 // setFamily
 // setRegistAnimal
 // getFamily
+// getAnimalType
 // getAnimalData
 // getAnimalDataArray
 
@@ -34,6 +35,19 @@ class AnimalCareAPI {
 
       const encodedAbi = await this.animalCareCountract.methods.setRegistAnimal(_animalID, byteName, byteAnimalType, byteColor, uintGender, byteBirth, byteAdoptionDate, _remarks).encodeABI();
       await this.sendTransaction(encodedAbi);
+  }
+
+  public txGetFamily = async (_userDID: string) => {
+    return await this.animalCareCountract.methods.getFamily(_userDID).call();
+  }
+
+  public txGetAnimalType = async (_animalType: string) => {
+    const byteAnimalType = ethers.utils.formatBytes32String(_animalType);
+    return await this.animalCareCountract.methods.getAnimalType(byteAnimalType).call();
+  }
+
+  public txGetAnimalData = async (_idx: string) => {
+    return await this.animalCareCountract.methods.getAnimalData(_idx).call();
   }
 
   private sendTransaction = async (encodedAbi) => {
