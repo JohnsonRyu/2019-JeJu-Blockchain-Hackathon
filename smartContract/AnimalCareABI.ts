@@ -240,6 +240,10 @@ const AnimalCareContract = [
 		"name": "getAnimalData",
 		"outputs": [
 			{
+				"name": "animalID",
+				"type": "uint256"
+			},
+			{
 				"name": "name",
 				"type": "bytes32"
 			},
@@ -429,7 +433,7 @@ const AnimalCareContract = [
 		"outputs": [
 			{
 				"name": "",
-				"type": "bytes32[]"
+				"type": "uint256[]"
 			},
 			{
 				"name": "",
